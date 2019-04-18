@@ -76,7 +76,90 @@ print("初始的信息熵为：",ent)
 ```
 运行结果图如下图所示：
 
-![image](https://github.com/Gaoshiguo/datamining-ID3-C4.5-CART/blob/master/iris-image/4.png)
+![image](https://github.com/Gaoshiguo/datamining-ID3-C4.5-CART/blob/master/iris-image/3.png)
 
-### 2.2接下来我们来计算如果选取第一个属性“花萼长度”作为最优化分属性的信息熵是多少
+### 2.2接下来我们计算第一个划分属性的信息熵
 
+假设我们首先选取第一个属性“花萼长度”来作为第一个最优化分属性，那么我们需要计算按照第一个属性来划分的话，样本共取到了多少个值，其中每个值有几个样本，并且还需要知道这些样本所属的花的种类，所以我们需要一些数组来存储和计算各个样本取值的概率以及各个取值所属的花的种类。
+
+代码如下图所示：
+
+```
+#获取所有的第一个属性值
+def calc_entropy(x):
+    list_1 = []
+    for i in range(0,len(iris.data)):
+        list_1.append(iris.data[i][x])
+        i = i+1
+    #print(list_1)#打印输出数据集中所有的一维属性值
+#计算列表中相同属性值的个数
+    se = set(list_1)#使用集合来去除列表中重复的元素
+    se_list=list(se)#集合没有索引，将集合强制转换成列表
+    #print(se_list)
+
+#计算相同元素的个数
+    list_count = []
+    for i in range(0,len(se_list)):
+        x = list_1.count(se_list[i])
+        #print(se_list[i],"共有",x,"个","其对应的编号是",)
+        list_count.append(x)
+        i = i+1
+
+    #print(list_count)
+    a =zeros((150,2))
+    m=0
+#将样本属性相同的值与其对应的花的种类存储在一个150行两列的二维数组中
+    for i in range(0,len(se_list)):
+        for j in range(0,len(list_1)):
+            if se_list[i]==list_1[j]:
+                a[m]=(se_list[i],iris.target[j])
+                j=j+1
+                m=m+1
+
+        i=i+1
+
+    #print(a)
+
+#将每个花萼属性可能取值的最终种类概率计算出来，存入一个x行3列的矩阵中，x的取值取决于该属性的取值
+#在花萼属性中，共有35个不同的样本数据，所以该矩阵为35x3
+#定义函数计算概率,将每个样本取值的概率存储在一个概率矩阵之中
+    p_mertix = np.ones((len(se_list),3))*0
+    for j in range(0, len(se_list)):
+        for i in range(0,len(a)):
+            if a[i][0] == se_list[j]:
+                if a[i][1]==0:
+                    p_mertix[j][0] = p_mertix[j][0]+1
+                elif a[i][1]==1:
+                    p_mertix[j][1] = p_mertix[j][1]+1
+                else:
+                    p_mertix[j][2] = p_mertix[j][2]+1
+            i=i+1
+        j=j+1
+#生成概率矩阵
+    for i in range(0,len(p_mertix)):
+        p_mertix[i][0] = round(p_mertix[i][0]/list_count[i],4)
+        p_mertix[i][1] = round(p_mertix[i][1] /list_count[i], 4)
+        p_mertix[i][2] = round(p_mertix[i][2] /list_count[i], 4)
+        i=i+1
+    #print("花萼属性各个取值在样本中所占的比率为：",p_mertix)
+#定义计算各个信息熵的函数，将概率作为传入的参数
+    def calc_entropy(ps0,ps1,ps2):
+        if ps0==1 or ps1==1 or ps2==1:
+            Ent=0
+        elif ps0==0:
+            Ent= -(0 + ps1*math.log(ps1)/math.log(2) + ps2*math.log(ps2)/math.log(2))
+        elif ps1==0:
+            Ent = -(ps0 * math.log(ps0) / math.log(2) + 0 + ps2 * math.log(ps2) / math.log(2))
+        elif ps2==0:
+            Ent = -(ps0 * math.log(ps0) / math.log(2) + ps1 * math.log(ps1) / math.log(2) + 0)
+        else:
+            Ent = -(ps0 * math.log(ps0) / math.log(2) + ps1 * math.log(ps1) / math.log(2) + ps2 * math.log(ps2) / math.log(2))
+        return Ent
+#循环调用计算信息熵的函数，分别计算出每个样本的取值信息熵
+    restore = []
+    for i in range(0,len(p_mertix)):
+        restore.append(round(calc_entropy(p_mertix[i][0],p_mertix[i][1],p_mertix[i][2]),4))
+        i = i+1
+    #print("花萼属性各个取值的信息存储列表为：",restore)
+    
+ ```
