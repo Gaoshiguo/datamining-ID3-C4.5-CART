@@ -163,3 +163,19 @@ def calc_entropy(x):
     #print("花萼属性各个取值的信息存储列表为：",restore)
     
  ```
+
+### 2.3计算第一个属性作为最优化分属性的信息增益
+
+计算信息增益就是用初始的信息熵减去刚刚得到的信息熵，这个差值就是信息增益。这部分代码比较简单
+
+```
+#计算信息增益
+    sum = 0
+    for i in range(0,len(restore)):
+        sum = sum+(list_count[i]/len(list_1))*restore[i]
+        i=i+1
+    Ent_gain = ent-sum
+    return Ent_gain
+gain = []
+
+```
