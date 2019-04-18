@@ -33,3 +33,4 @@ print(iris.target.shape)
 
 ![image](https://github.com/Gaoshiguo/datamining-ID3-C4.5-CART/blob/master/iris-image/3.png)
 
+所以，我们在计算信息增益时首先要做的就是先计算出整个数据集最初始时的信息熵，然后选择四个属性中的某一个属性作为最优划分属性，计算按照该属性划分后的信息熵，计算两者的差值，这个差值称之为信息增益，信息熵越小代表信息越纯，信息增益越大代表最优划分属性选择的越好，最容易划分数据集
