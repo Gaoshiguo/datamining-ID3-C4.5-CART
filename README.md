@@ -78,4 +78,5 @@ print("初始的信息熵为：",ent)
 
 ![image](https://github.com/Gaoshiguo/datamining-ID3-C4.5-CART/blob/master/iris-image/4.png)
 
+### 2.2接下来我们来计算如果选取第一个属性“花萼长度”作为最优化分属性的信息熵是多少
 
