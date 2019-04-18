@@ -76,6 +76,6 @@ print("初始的信息熵为：",ent)
 ```
 运行结果图如下图所示：
 
-![image](https://github.com/Gaoshiguo/datamining-ID3-C4.5-CART/blob/master/iris-image/3.png)
+![image](https://github.com/Gaoshiguo/datamining-ID3-C4.5-CART/blob/master/iris-image/4.png)
 
 
