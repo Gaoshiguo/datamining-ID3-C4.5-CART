@@ -76,7 +76,7 @@ print("初始的信息熵为：",ent)
 ```
 运行结果图如下图所示：
 
-![image](https://github.com/Gaoshiguo/datamining-ID3-C4.5-CART/blob/master/iris-image/3.png)
+![image](https://github.com/Gaoshiguo/datamining-ID3-C4.5-CART/blob/master/iris-image/4.png)
 
 ## 三、计算第一个属性划分的信息熵
 
@@ -195,3 +195,6 @@ for i in range(0,3):
     i=i+1
  
 ```
+最终代码结果如下：
+
+![image](https://github.com/Gaoshiguo/datamining-ID3-C4.5-CART/blob/master/iris-image/5.png)
